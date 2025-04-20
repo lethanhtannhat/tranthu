@@ -219,7 +219,29 @@ def luoitracnghiem(*args, stt, colums):
 
 def luoihopkiem(*args, stt, rows, colums):
     hk_luoi(*args, stt=stt, rows=rows, colums=colums)
-
+def hk_grid1(*args, stt, colums):
+    compare_values = [list(arg) for arg in args]  # Chia thành các hàng (số câu hỏi)
+    rows = len(compare_values)
+    vitri=1
+    k=2
+    my_string = []
+    radio_buttons = []
+    for j in range(1, rows + 1):
+        for i in range(1, colums +1):
+            index = (j-1) * colums + (i-1)
+            my_string.append(f'/html/body/div/div[2]/form/div[2]/div/div[2]/div[{stt+1}]/div/div/div[3]/div/div[1]/div/div[{k}]/span/div[{i+1}]/div/div')
+                            #/html/body/div/div[3]/form/div[2]/div/div[2]/div[3]/div/div/div[3]/div/div[1]/div/div[2]/span/div[6]/div/div
+            radio_buttons.append(WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.XPATH, my_string[index])))) #lấy xpath ô trắc nghiệm 1
+            for radio in radio_buttons[index]:
+                for value in compare_values[j-1]:
+                    if radio.get_attribute("data-value") == value  or str(vitri) == value:
+                        radio.click()
+                        break
+            vitri=vitri+1                        
+        vitri=1
+        k=k+2
+def luoitracnghiem1(*args, stt, colums):
+    hk_grid1(*args, stt=stt, colums=colums)
 
 # Đọc chỉ số dòng hiện tại
 try:
@@ -244,12 +266,44 @@ try:
     for i in range(index, total_rows):
         row = reader[i]
 
-        driver.get('https://docs.google.com/forms/d/e/1FAIpQLSeQERSdPsc8Kh3SV92kOhjc1d9qLyA4X0z6JgMaxa5OgvKyhQ/viewform')
-        fill_form(row[0], 0)  # Thay đổi theo cách bạn định nghĩa hàm fill_form
-
+        driver.get('https://docs.google.com/forms/d/e/1FAIpQLScMkrJ2TOpeAcruLTDgX6B0qWwaKt8UGx5KU-TXyv9urzQQIw/viewform')
         next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div')))
         next_button.click()
-        time.sleep(5)
+        tracnghiem(row[0],1,4)
+        tracnghiem(row[1],2,3)
+        tracnghiem(row[2],3,4)
+        tracnghiem(row[3],4,4)
+        tracnghiem(row[4],5,4)
+        hopkiem(row[5],row[6],row[7],stt=6)
+        tracnghiem(row[8],7,5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        luoitracnghiem(row[9],row[10],stt=1,colums=5)
+        luoitracnghiem1(row[11],row[12],row[13],row[14],row[15],stt=2,colums=5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        luoitracnghiem(row[16],row[17],row[18],row[19],stt=1,colums=5)
+        luoitracnghiem(row[20],row[21],row[22],row[23],stt=2,colums=5)
+        luoitracnghiem(row[24],row[25],row[26],stt=3,colums=5)
+        luoitracnghiem(row[27],row[28],row[29],row[30],stt=4,colums=5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        luoitracnghiem(row[31],row[32],row[33],stt=1,colums=5)
+        luoitracnghiem(row[34],row[35],row[36],row[37],stt=2,colums=5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        luoitracnghiem(row[38],row[39],row[40],stt=1,colums=5)
+        luoitracnghiem(row[41],row[42],row[43],row[44],stt=2,colums=5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        luoitracnghiem(row[45],row[46],row[47],stt=1,colums=5)
+        luoitracnghiem(row[48],row[49],row[50],stt=2,colums=5)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        time.sleep(0.2)
+        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+        submit_button.click()
+        time.sleep(0.6)
 
         # Ghi index sau mỗi lần submit
         with open("index.txt", "w") as f:
