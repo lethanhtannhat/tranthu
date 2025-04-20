@@ -25,7 +25,7 @@ for row in rows:
     if not row: continue
     try:
         # Chuyển string → datetime (giờ VN)
-        scheduled_vn = datetime.strptime(row[0], "%m/%d/%Y %H:%M:%S")
+        scheduled_vn = datetime.strptime(row[0], "%m/%d/%Y %H:%M")
 
         scheduled_utc = scheduled_vn - timedelta(hours=7)
 
