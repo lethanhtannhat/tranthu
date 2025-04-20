@@ -243,14 +243,13 @@ def hk_grid1(*args, stt, colums):
 def luoitracnghiem1(*args, stt, colums):
     hk_grid1(*args, stt=stt, colums=colums)
 
-# Đọc chỉ số dòng hiện tại
 try:
     with open("index.txt", "r") as f:
         index = int(f.read().strip())
 except FileNotFoundError:
     index = 0
 
-# Mở và đọc CSV
+# Mở và đọc đúng dòng trong CSV
 with open("test.csv", encoding="utf-8-sig") as file:
     reader = list(csv.reader(file))
     total_rows = len(reader)
@@ -260,55 +259,50 @@ with open("test.csv", encoding="utf-8-sig") as file:
         exit()
 
     if index >= total_rows:
-        print("Đã chạy hết tất cả các dòng trong CSV.")
-        exit()
-try:    
-    for i in range(index, total_rows):
-        row = reader[i]
+        index = 0
 
-        driver.get('https://docs.google.com/forms/d/e/1FAIpQLScMkrJ2TOpeAcruLTDgX6B0qWwaKt8UGx5KU-TXyv9urzQQIw/viewform')
-        next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div')))
-        next_button.click()
-        tracnghiem(row[0],1,4)
-        tracnghiem(row[1],2,3)
-        tracnghiem(row[2],3,4)
-        tracnghiem(row[3],4,4)
-        tracnghiem(row[4],5,4)
-        hopkiem(row[5],row[6],row[7],stt=6)
-        tracnghiem(row[8],7,5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        luoitracnghiem(row[9],row[10],stt=1,colums=5)
-        luoitracnghiem1(row[11],row[12],row[13],row[14],row[15],stt=2,colums=5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        luoitracnghiem(row[16],row[17],row[18],row[19],stt=1,colums=5)
-        luoitracnghiem(row[20],row[21],row[22],row[23],stt=2,colums=5)
-        luoitracnghiem(row[24],row[25],row[26],stt=3,colums=5)
-        luoitracnghiem(row[27],row[28],row[29],row[30],stt=4,colums=5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        luoitracnghiem(row[31],row[32],row[33],stt=1,colums=5)
-        luoitracnghiem(row[34],row[35],row[36],row[37],stt=2,colums=5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        luoitracnghiem(row[38],row[39],row[40],stt=1,colums=5)
-        luoitracnghiem(row[41],row[42],row[43],row[44],stt=2,colums=5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        luoitracnghiem(row[45],row[46],row[47],stt=1,colums=5)
-        luoitracnghiem(row[48],row[49],row[50],stt=2,colums=5)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        time.sleep(0.2)
-        submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
-        submit_button.click()
-        time.sleep(0.6)
+    row = reader[index]
 
-        # Ghi index sau mỗi lần submit
-        with open("index.txt", "w") as f:
-            f.write(str(i + 1))
-except Exception as e:
-    print("error")
-finally:
-    driver.close()
+
+driver.get('https://docs.google.com/forms/d/e/1FAIpQLScMkrJ2TOpeAcruLTDgX6B0qWwaKt8UGx5KU-TXyv9urzQQIw/viewform')
+next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div')))
+next_button.click()
+tracnghiem(row[0],1,4)
+tracnghiem(row[1],2,3)
+tracnghiem(row[2],3,4)
+tracnghiem(row[3],4,4)
+tracnghiem(row[4],5,4)
+hopkiem(row[5],row[6],row[7],stt=6)
+tracnghiem(row[8],7,5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+luoitracnghiem(row[9],row[10],stt=1,colums=5)
+luoitracnghiem1(row[11],row[12],row[13],row[14],row[15],stt=2,colums=5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+luoitracnghiem(row[16],row[17],row[18],row[19],stt=1,colums=5)
+luoitracnghiem(row[20],row[21],row[22],row[23],stt=2,colums=5)
+luoitracnghiem(row[24],row[25],row[26],stt=3,colums=5)
+luoitracnghiem(row[27],row[28],row[29],row[30],stt=4,colums=5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+luoitracnghiem(row[31],row[32],row[33],stt=1,colums=5)
+luoitracnghiem(row[34],row[35],row[36],row[37],stt=2,colums=5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+luoitracnghiem(row[38],row[39],row[40],stt=1,colums=5)
+luoitracnghiem(row[41],row[42],row[43],row[44],stt=2,colums=5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+luoitracnghiem(row[45],row[46],row[47],stt=1,colums=5)
+luoitracnghiem(row[48],row[49],row[50],stt=2,colums=5)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+time.sleep(0.2)
+submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
+submit_button.click()
+time.sleep(0.6)
+with open("index.txt", "w") as f:
+    f.write(str(index + 1))
+     
+driver.close()
