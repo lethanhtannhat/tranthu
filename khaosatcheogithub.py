@@ -263,14 +263,17 @@ with open("test.csv", encoding="utf-8-sig") as file:
 
     row = reader[index]
 
-
+time.sleep(1)
 driver.get('https://docs.google.com/forms/d/e/1FAIpQLSfgx_s3QN-onHzlevXG9iHoRUZxgK6PqK4eMTuQV82E6FWMBA/viewform')
+time.sleep(1)
 tracnghiem(row[0],0,4)
 tracnghiem(row[1],1,2)
 tracnghiem(row[2],2,2)
 tracnghiem(row[3],3,4)
+
 next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div')))
 driver.execute_script("arguments[0].click();", next_button)
+time.sleep(1)
 #/html/body/div/div[2]/form/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div/span/div/div[1]/label
 tracnghiem(row[4],5,3)
 luoitracnghiem(row[5],row[6],stt=6,colums=5)
@@ -284,6 +287,7 @@ luoitracnghiem(row[25],row[26],stt=13,colums=5)
 luoitracnghiem(row[27],row[28],row[29],stt=14,colums=5)
 submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
 driver.execute_script("arguments[0].click();", submit_button)
+time.sleep(1)
 tracnghiem(row[30],3,3)
 luoitracnghiem(row[31],row[32],stt=4,colums=5)
 hopkiem(row[33],row[34],stt=5)
@@ -296,7 +300,7 @@ luoitracnghiem(row[49],row[50],stt=11,colums=5)
 luoitracnghiem(row[51],row[52],row[53],stt=12,colums=5)
 submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
 driver.execute_script("arguments[0].click();", submit_button)
-time.sleep(0.6)
+time.sleep(1)
 with open("index.txt", "w") as f:
     f.write(str(index + 1))
      
