@@ -276,9 +276,10 @@ else:
     time.sleep(0.2)
     submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]')))
     driver.execute_script("arguments[0].click();", submit_button)
-time.sleep(random.randint(60,180))
+
 with open("index.txt", "w") as f:
     f.write(str(index + 1))
-     
+time.sleep(random.randint(60,180))    
 driver.close()
+
 
