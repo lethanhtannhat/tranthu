@@ -273,7 +273,7 @@ time.sleep(1)
 driver.close()
 with open("index.txt", "w") as f:
     f.write(str(index + 1))
-
+time.sleep(random.randint(60,180)
 
 
 
