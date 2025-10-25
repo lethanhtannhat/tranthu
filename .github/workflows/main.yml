@@ -29,14 +29,23 @@ jobs:
         run: |
           python timerun.py
 
-      - name: Commit changes if any
+      - name: 🔄 Pull, Commit và Push (Đã sửa lỗi bị từ chối)
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # 1. Cấu hình user cho commit (Đảm bảo đã có)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # 2. Thêm và Commit các file (Nếu có thay đổi)
           git add time.csv index.txt
           git commit -m "Updated time.csv and index.txt after form submission" || echo "No changes to commit"
           
+          # --- BƯỚC KHẮC PHỤC LỖI QUAN TRỌNG ---
           
+          # 3. Kéo (pull) các thay đổi mới nhất từ remote
+          # Phải sử dụng cú pháp xác thực với token để pull, giống như khi push
+          # Lệnh 'pull' này sẽ tự động hợp nhất (merge) các thay đổi remote vào nhánh hiện tại.
+          git pull --rebase https://${{ github.token }}@github.com/${{ github.repository }} main
           
-          # Sau đó push
-          git push
+          # 4. Đẩy code sau khi đã hợp nhất thành công
+          # Sử dụng cú pháp xác thực đã dùng để push
+          git push https://${{ github.token }}@github.com/${{ github.repository }} HEAD:main
